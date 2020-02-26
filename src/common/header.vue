@@ -5,7 +5,7 @@
         <div class="w-box">
           <div class="nav-logo">
             <h1 @click="changePage(-1)">
-              <router-link to="/" title="XMall商城官网">XMall商城</router-link>
+              <router-link to="/" title="杂货铺">杂货铺</router-link>
             </h1>
           </div>
           <div class="right-box">
@@ -22,7 +22,7 @@
                 @keydown.enter.native="handleIconClick">
               </el-autocomplete>
               <router-link to="/goods"><a @click="changePage(2)">全部商品</a></router-link>
-              <router-link to="/thanks"><a @click="changePage(4)">捐赠</a></router-link>
+              <!-- <router-link to="/thanks"><a @click="changePage(4)">捐赠</a></router-link> -->
               <!-- <router-link to="/">Smartisan M1 / M1L</router-link>
               <router-link to="/">Smartisan OS</router-link>
               <router-link to="/">欢喜云</router-link>
@@ -229,11 +229,7 @@
           this.$router.push({
             path: '/'
           })
-        } else if (v === -2) {
-          this.$router.push({
-            path: '/refreshgoods'
-          })
-        } else {
+        }  else {
           // 站内跳转
           if (item.type === 1) {
             window.location.href = item.fullUrl

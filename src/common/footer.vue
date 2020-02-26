@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="container">
       <div class="siteinfo">
-        <ul class="c0">
+        <!-- <ul class="c0">
           <h3 class="c1">订单服务</h3>
           <ul>
             <li class="c2"><router-link to="/thanks"><a class="c3">购买指南</a></router-link></li>
@@ -49,11 +49,11 @@
             <li class="c2"><a class="c3" target="_blank" href="http://weibo.com/2255094222/profile">新浪微博</a></li>
             <li class="c2"><a class="c3" target="_blank" href="mailto:1012139570@qq.com">官方邮箱</a></li>
           </ul>
-        </ul>
+        </ul> -->
 
         <ul class="c4">
-          <li class="tel"><a class="c5" href="http://wpa.qq.com/msgrd?v=3&uin=1012139570&site=qq&menu=yes" target="_blank">1012139570</a></li>
-          <li class="time">周一至周日 10:00-23:00（限Starrer或捐赠人联系）</li>
+          <!-- <li class="tel"><a class="c5" href="http://wpa.qq.com/msgrd?v=3&uin=1012139570&site=qq&menu=yes" target="_blank">1012139570</a></li> -->
+          <li class="time">周一至周日 10:00-23:00</li>
           <li class="online">
             <y-button text="在线帮助" class="button" @btnClick="open3"></y-button>
           </li>
@@ -70,8 +70,8 @@
       </div>
       <div class="cop">
         <a class="content-c3" href="http://www.miibeian.gov.cn/" target="_blank">
-          <span class="content-c3">蜀ICP备16030308号-1</span>
-          <span class="content-c3">蜀ICP证16030308号</span>
+          <span class="content-c3">京ICP备19010350号</span>
+          <span class="content-c3">京ICP备19010350号</span>
         </a>
       </div>
     </div>
