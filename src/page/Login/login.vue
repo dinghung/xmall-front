@@ -223,7 +223,6 @@ export default {
     this.getRemembered()
     this.login_addCart()
     this.init_geetest()
-    this.open('登录提示', '测试体验账号密码：test | test')
   },
   components: {
     YFooter,
