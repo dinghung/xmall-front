@@ -229,7 +229,11 @@
           this.$router.push({
             path: '/'
           })
-        }  else {
+        } else if (v === -2) {
+          this.$router.push({
+            path: '/refreshgoods'
+          })
+        } else {
           // 站内跳转
           if (item.type === 1) {
             window.location.href = item.fullUrl
