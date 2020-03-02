@@ -11,7 +11,7 @@
       <input type="hidden" name="returnUrl" v-model="returnUrl"/>
       <input type="hidden" name="notifyUrl" v-model="notifyUrl"/>
       <input type="hidden" name="sign" v-model="sign"/>
-      <input type="submit" value="提交" style="display:none;" />
+      <input type="submit" value="提交"  />
     </form>
   </div>
 </template>
@@ -54,7 +54,8 @@
         })
       },
       onSubmit () {
-        document.forms['rppaysubmit'].submit()
+        
+        //document.forms['rppaysubmit'].submit()
       }
     },
     mounted () {
