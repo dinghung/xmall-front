@@ -176,6 +176,7 @@
           this.tel = res.result.addressInfo.tel
           this.streetName = res.result.addressInfo.streetName
           this.orderTotal = res.result.orderTotal
+          this.money = res.result.orderTotal
         })
       },
       paySuc () {
@@ -206,7 +207,7 @@
             if (this.payType === 1) {
               this.$router.push(
                 {
-                  path: '/order/alipay',
+                  path: '/order/alipay11',
                   query: {
                     'orderId': this.orderId
                   }
