@@ -38,19 +38,23 @@
     methods: {
       _alipay (orderId) {
         console.log(orderId)
-        payment({params: {orderId}}).then(res => {
-          console.log(res)
-          this.productName = res.result.productName
-          this.orderNo = res.result.orderNo
-          this.orderPrice = res.result.orderPrice
-          this.orderIp = res.result.orderIp
-          this.orderDate = res.result.orderDate
-          this.orderTime = res.result.orderTime
-          this.orderPeriod = res.result.orderPeriod
-          this.returnUrl = res.result.returnUrl
-          this.notifyUrl = res.result.notifyUrl
-          this.payUrl = res.result.notifyUrl
-          this.sign = res.result.sign
+        payment({orderId}).then(res => {
+          if (res.success === true) {
+            console.log(res)
+            this.productName = res.result.productName
+            this.orderNo = res.result.orderNo
+            this.orderPrice = res.result.orderPrice
+            this.orderIp = res.result.orderIp
+            this.orderDate = res.result.orderDate
+            this.orderTime = res.result.orderTime
+            this.orderPeriod = res.result.orderPeriod
+            this.returnUrl = res.result.returnUrl
+            this.notifyUrl = res.result.notifyUrl
+            this.payUrl = res.result.notifyUrl
+            this.sign = res.result.sign
+          } else {
+            this.messageFail(res.message)
+          }
         })
       },
       onSubmit () {
