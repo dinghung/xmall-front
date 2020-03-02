@@ -38,7 +38,7 @@
       }
     },
     computed: {
-      onSubmit()
+      
     },
     methods: {
       _alipay () {
@@ -59,11 +59,11 @@
         })
       },
       onSubmit() {
-          document.forms['rppaysubmit'].submit();
+          document.forms['rppaysubmit'].submit()
       }
     },
     mounted () {
-      
+      this.onSubmit()
     },
     created () {
       this.orderId = this.$route.query.orderId
