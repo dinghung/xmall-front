@@ -3,3 +3,4 @@ import http from './public'
 export const payment = (params) => {
   return http.fetchPost('/pay/payment', params)
 }
+

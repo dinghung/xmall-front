@@ -51,15 +51,15 @@
           this.sign = res.result.sign
         })
       },
-      onSubmit() {
-          document.forms['rppaysubmit'].submit()
+      onSubmit () {
+        document.forms['rppaysubmit'].submit()
       }
     },
     mounted () {
       this.onSubmit()
     },
     created () {
-      this.orderId = this.$route.query.orderId
+      let orderId = this.$route.query.orderId
       this._alipay(orderId)
       this.userId = getStore('userId')
     }

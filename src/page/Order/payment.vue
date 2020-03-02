@@ -208,7 +208,7 @@
                 {
                   path: '/order/alipay',
                   query: {
-                    'orderId': orderId
+                    'orderId': this.orderId
                   }
                 }
               )
@@ -225,7 +225,7 @@
             this.messageFail(res.message)
           }
         })
-      },
+      }
       // isMoney (v) {
       //   if (v < 0.1) {
       //     return false
