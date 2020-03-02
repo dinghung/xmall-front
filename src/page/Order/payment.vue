@@ -3,12 +3,12 @@
     <y-shelf title="支付订单">
       <div slot="content">
         <div class="box-inner order-info">
-          <h3>提交订单成功，请填写捐赠信息</h3>
-          <p class="payment-detail">请在 <span>24 小时内</span>完成支付，超时订单将自动取消。</p>
-          <p class="payment-detail">我们不会在您完成支付后的 72 小时内发货，您的支付将用作捐赠</p>
-          <p class="payment-detail" style="color:red">请仔细填写捐赠信息，避免系统审核失败无法在捐赠名单中显示您的数据</p>
+          <h3>提交订单成功，请选择支付方式</h3>
+          <p class="payment-detail">支付连接在 <span>1 小时后</span>失效，超时后请重新点击支付。</p>
+          <p class="payment-detail">我们不会在您完成支付后的 72 小时内发货</p>
+          <p class="payment-detail" style="color:red">请仔细检查您的支付信息，如遇到问题请联系客服</p>
         </div>
-        <div class="pay-info">
+        <!-- <div class="pay-info">
           <span style="color:red">*</span> 昵称：<el-input v-model="nickName" placeholder="请输入您的昵称" @change="checkValid" :maxlength="maxLength" class="input"></el-input><br>
           <span style="color:red">*</span> 捐赠金额：<el-select class="money-select" v-model="moneySelect" placeholder="请选择支付金额" @change="changeSelect">
             <el-option label="￥0.10 我是穷逼" value="0.10"></el-option>
@@ -20,14 +20,14 @@
           <div v-if="moneySelect === 'custom'"><span style="color:red">*</span> 输入金额：<el-input v-model="money" placeholder="请输入捐赠金额(最多2位小数，不得低于0.1元)" @change="checkValid" :maxlength="maxLength" class="input" style="margin-left:10px"></el-input><br></div>
           <span style="color:red">*</span> 通知邮箱：<el-input v-model="email" placeholder="支付审核结果将以邮件方式发送至您的邮箱" @change="checkValid" :maxlength="maxLength" class="input" style="margin-left:10px"></el-input><br>
           &nbsp;&nbsp; 留言：<el-input v-model="info" placeholder="请输入您的留言内容" :maxlength="maxLength" class="input"></el-input>
-        </div>
+        </div> -->
         <!--支付方式-->
         <div class="pay-type">
           <div class="p-title">支付方式</div>
           <div class="pay-item">
             <div :class="{active:payType==1}" @click="payType=1"><img src="/static/images/alipay@2x.png" alt=""></div>
-            <div :class="{active:payType==2}" @click="payType=2"><img src="/static/images/weixinpay@2x.png" alt=""></div>
-            <div :class="{active:payType==3}" @click="payType=3"><img src="/static/images/qqpay.png" alt=""></div>
+            <!-- <div :class="{active:payType==2}" @click="payType=2"><img src="/static/images/weixinpay@2x.png" alt=""></div>
+            <div :class="{active:payType==3}" @click="payType=3"><img src="/static/images/qqpay.png" alt=""></div> -->
           </div>
         </div>
 
@@ -115,7 +115,7 @@
         tel: '',
         streetName: '',
         payNow: '立刻支付',
-        submit: false,
+        submit: true,
         nickName: '',
         money: '1.00',
         info: '',
@@ -129,38 +129,38 @@
     },
     computed: {
       // 选中的总价格
-      checkPrice () {
-        let totalPrice = 0
-        this.cartList && this.cartList.forEach(item => {
-          if (item.checked === '1') {
-            totalPrice += (item.productNum * item.salePrice)
-          }
-        })
-        return totalPrice
-      }
+      // checkPrice () {
+      //   let totalPrice = 0
+      //   this.cartList && this.cartList.forEach(item => {
+      //     if (item.checked === '1') {
+      //       totalPrice += (item.productNum * item.salePrice)
+      //     }
+      //   })
+      //   return totalPrice
+      // }
     },
     methods: {
-      checkValid () {
-        if (this.nickName !== '' && this.money !== '' && this.isMoney(this.money) && this.email !== '' && this.isEmail(this.email)) {
-          this.submit = true
-        } else {
-          this.submit = false
-        }
-      },
+      // checkValid () {
+      //   if (this.nickName !== '' && this.money !== '' && this.isMoney(this.money) && this.email !== '' && this.isEmail(this.email)) {
+      //     this.submit = true
+      //   } else {
+      //     this.submit = false
+      //   }
+      // },
       messageFail (m) {
         this.$message.error({
           message: m
         })
       },
-      changeSelect (v) {
-        if (v !== 'custom') {
-          this.money = v
-        } else {
-          this.isCustom = true
-          this.money = ''
-        }
-        this.checkValid()
-      },
+      // changeSelect (v) {
+      //   if (v !== 'custom') {
+      //     this.money = v
+      //   } else {
+      //     this.isCustom = true
+      //     this.money = ''
+      //   }
+      //   this.checkValid()
+      // },
       goodsDetails (id) {
         window.open(window.location.origin + '#/goodsDetails?productId=' + id)
       },
@@ -204,7 +204,14 @@
             setStore('price', this.money)
             setStore('isCustom', this.isCustom)
             if (this.payType === 1) {
-              this.$router.push({path: '/order/alipay'})
+              this.$router.push(
+                {
+                  path: '/order/alipay',
+                  query: {
+                    'orderId': orderId
+                  }
+                }
+              )
             } else if (this.payType === 2) {
               this.$router.push({path: '/order/wechat'})
             } else if (this.payType === 3) {
@@ -219,28 +226,28 @@
           }
         })
       },
-      isMoney (v) {
-        if (v < 0.1) {
-          return false
-        }
-        var regu = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/
-        var re = new RegExp(regu)
-        if (re.test(v)) {
-          return true
-        } else {
-          return false
-        }
-      },
-      isEmail (v) {
-        var regu = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
-        var re = new RegExp(regu)
-        if (re.test(v)) {
-          return true
-        } else {
-          return false
-        }
-      }
-    },
+      // isMoney (v) {
+      //   if (v < 0.1) {
+      //     return false
+      //   }
+      //   var regu = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/
+      //   var re = new RegExp(regu)
+      //   if (re.test(v)) {
+      //     return true
+      //   } else {
+      //     return false
+      //   }
+      // },
+    //   isEmail (v) {
+    //     var regu = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
+    //     var re = new RegExp(regu)
+    //     if (re.test(v)) {
+    //       return true
+    //     } else {
+    //       return false
+    //     }
+    //   }
+    // },
     created () {
       this.userId = getStore('userId')
       this.orderId = this.$route.query.orderId

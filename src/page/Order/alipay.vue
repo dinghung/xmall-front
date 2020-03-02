@@ -1,178 +1,74 @@
 <template>
   <div class="w" style="padding-bottom: 100px;">
-    <y-shelf title="XPay收银台 收款方: Exrick">
-      <div slot="content">
-        <div class="box-inner order-info">
-          <p class="payment-detail">扫一扫付款（元）</p>
-          <p class="payment-money">{{orderTotal}}</p>
-          <div class="img-box">
-            <img id="qr" class="pic" v-bind:src="imgPath" alt="加载失败" width="168px" height="168px"/>
-            <div class="explain">
-              <img class="fn-left" src="https://t.alipayobjects.com/images/T1bdtfXfdiXXXXXXXX.png" alt="扫一扫标识">
-              <div class="fn-right">打开手机支付宝<br>扫一扫继续付款</div>
-              <div class="timeout" v-if="timeout">二维码已过期</div>
-            </div>
-          </div>
-          <a class="download-alipay" href="https://mobile.alipay.com/index.htm" target="_blank">首次使用请下载手机支付宝</a>
-          <div class="count">{{timecount}}</div>
-
-          <div class="qrguide-area">
-            <img src="https://t.alipayobjects.com/images/rmsweb/T13CpgXf8mXXXXXXXX.png" :class="show?'show-img':'close-img'" @click="changePic()">
-            <img src="https://t.alipayobjects.com/images/rmsweb/T1ASFgXdtnXXXXXXXX.png" :class="show?'close-img':'show-img'" @click="changePic()">
-          </div>
-
-          <img src="static/images/red.png" width="50px" height="50px" class="red" title="支付领红包" @click="showRed()">
-        </div>
-
-        <div>
-          <div class="box-btn">
-            <div>
-              <span>
-              
-              </span>
-              <em><span>¥</span>{{orderTotal}}</em>
-              <y-button :text="payNow"
-                        :classStyle="submit?'main-btn':'disabled-btn'"
-                        style="width: 120px;height: 40px;font-size: 16px;line-height: 38px"
-                        @btnClick="paySuc()"
-              ></y-button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </y-shelf>
-
-    <el-dialog
-      title="支付红包"
-      :visible.sync="dialogVisible"
-      width="30%"
-      @close="handleClose" style="text-align:center;width:50%;margin:0 auto">
-      <img src="http://oweupqzdv.bkt.clouddn.com/1512881761970_small.jpg" class="qr-red"/>
-      <span>支付前领个红包吧(每日可领一次)</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">领取了</el-button>
-      </span>
-    </el-dialog>
+    <form id="rppaysubmit" name="rppaysubmit" :action="payUrl" method="GET">
+      <input type="hidden" name="productName" :value="productName"/>
+      <input type="hidden" name="orderNo" :value="orderNo"/>
+      <input type="hidden" name="orderPrice" :value="orderPrice"/>
+      <input type="hidden" name="orderIp" :value="orderIp"/>
+      <input type="hidden" name="orderDate" :value="orderDate"/>
+      <input type="hidden" name="orderTime" :value="orderTime"/>
+      <input type="hidden" name="orderPeriod" :value="orderPeriod"/>
+      <input type="hidden" name="returnUrl" :value="returnUrl"/>
+      <input type="hidden" name="notifyUrl" :value="notifyUrl"/>
+      <input type="hidden" name="sign" :value="sign"/>
+      <input type="submit" value="提交" style="display:none;" />
+    </form>
   </div>
 </template>
 <script>
   import YShelf from '/components/shelf'
   import YButton from '/components/YButton'
   import { getStore, setStore } from '/utils/storage'
+  import { payment } from '/api/pay.js'
   export default {
     data () {
       return {
-        show: true,
-        count: 25,
-        userId: '',
-        orderTotal: '',
-        userName: '',
-        tel: '',
-        streetName: '',
-        checkPrice: '',
-        payNow: '等待支付...',
-        submit: false,
-        nickName: '',
-        money: '',
-        info: '',
-        email: '',
-        dialogVisible: true,
-        isCustom: 0,
-        imgPath: 'static/qr/alipay/custom.png',
-        picName: '',
-        timeout: false,
-        timecount: ''
+        orderId: '',
+        productName: '',
+        orderNo: '',
+        orderPrice: '',
+        orderIp: '',
+        orderDate: '',
+        orderTime: '',
+        orderPeriod: '',
+        returnUrl: '',
+        notifyUrl: '',
+        payUrl: '',
+        sign: ''
       }
     },
     computed: {
+      onSubmit()
     },
     methods: {
-      changePic () {
-        this.show = !this.show
+      _alipay () {
+        payment({params: {orderId}}).then(res => {
+          if(res.code = '200'){
+            this.productName = res.result.productName
+            this.orderNo = res.result.orderNo
+            this.orderPrice = res.result.orderPrice
+            this.orderIp = res.result.orderIp
+            this.orderDate = res.result.orderDate
+            this.orderTime = res.result.orderTime
+            this.orderPeriod = res.result.orderPeriod
+            this.returnUrl = res.result.returnUrl
+            this.notifyUrl = res.result.notifyUrl
+            this.payUrl = res.result.notifyUrl
+            this.sign = res.result.sign
+          }
+        })
       },
-      toMoney (num) {
-        num = parseFloat(num)
-        num = num.toFixed(2)
-        num = num.toLocaleString()
-        return num
-      },
-      handleClose () {
-        this.countDown()
-        this.countTime()
-      },
-      showRed () {
-        this.dialogVisible = true
-      },
-      countDown () {
-        let me = this
-        if (this.count === 0) {
-          this.payNow = '确认已支付'
-          this.submit = true
-          return
-        } else {
-          this.count--
-        }
-        setTimeout(function () {
-          me.countDown()
-        }, 1000)
-      },
-      countTime () {
-        let me = this
-        let time = getStore('setTime')
-        if (time <= 0) {
-          this.timeout = true
-          this.timecount = ''
-          this.count = 10000
-          return
-        } else {
-          time--
-          this.showTime(time)
-          setStore('setTime', time)
-        }
-        setTimeout(function () {
-          me.countTime()
-        }, 1000)
-      },
-      showTime (v) {
-        let m = 0
-        let s = 0
-        if (v === null || v === '') {
-          return ''
-        }
-        if (v >= 60) {
-          m = Math.floor(v / 60)
-          s = v % 60
-        } else {
-          s = v
-        }
-        if (m >= 0 && m <= 9) {
-          m = '0' + m
-        }
-        if (s >= 0 && s <= 9) {
-          s = '0' + s
-        }
-        this.timecount = '请于 ' + m + ' 分 ' + s + ' 秒 内支付'
-      },
-      paySuc () {
-        this.$router.push({path: '/order/paysuccess', query: {price: this.orderTotal}})
+      onSubmit() {
+          document.forms['rppaysubmit'].submit();
       }
     },
     mounted () {
-      let price = getStore('price')
-      let isCustom = getStore('isCustom')
-      this.orderTotal = this.toMoney(price)
-      if (this.orderTotal === 'NaN') {
-        this.$router.push({path: '/'})
-      }
-      if (isCustom !== 'true') {
-        this.picName = this.orderTotal
-        this.imgPath = 'static/qr/alipay/' + this.picName + '.png'
-      }
+      
     },
-    components: {
-      YShelf,
-      YButton
+    created () {
+      this.orderId = this.$route.query.orderId
+      this._alipay(id)
+      this.userId = getStore('userId')
     }
   }
 </script>

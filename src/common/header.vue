@@ -5,7 +5,7 @@
         <div class="w-box">
           <div class="nav-logo">
             <h1 @click="changePage(-1)">
-              <router-link to="/" title="杂货铺">杂货铺</router-link>
+              <router-link to="/" title="秦汉新城辉暘网络工作室">秦汉新城辉暘网络工作室</router-link>
             </h1>
           </div>
           <div class="right-box">
