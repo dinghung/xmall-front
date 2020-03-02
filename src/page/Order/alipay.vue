@@ -16,9 +16,7 @@
   </div>
 </template>
 <script>
-  import YShelf from '/components/shelf'
-  import YButton from '/components/YButton'
-  import { getStore, setStore } from '/utils/storage'
+  import { getStore } from '/utils/storage'
   import { payment } from '/api/pay.js'
   export default {
     data () {
@@ -37,25 +35,20 @@
         sign: ''
       }
     },
-    computed: {
-      
-    },
     methods: {
-      _alipay () {
+      _alipay (orderId) {
         payment({params: {orderId}}).then(res => {
-          if(res.code = '200'){
-            this.productName = res.result.productName
-            this.orderNo = res.result.orderNo
-            this.orderPrice = res.result.orderPrice
-            this.orderIp = res.result.orderIp
-            this.orderDate = res.result.orderDate
-            this.orderTime = res.result.orderTime
-            this.orderPeriod = res.result.orderPeriod
-            this.returnUrl = res.result.returnUrl
-            this.notifyUrl = res.result.notifyUrl
-            this.payUrl = res.result.notifyUrl
-            this.sign = res.result.sign
-          }
+          this.productName = res.result.productName
+          this.orderNo = res.result.orderNo
+          this.orderPrice = res.result.orderPrice
+          this.orderIp = res.result.orderIp
+          this.orderDate = res.result.orderDate
+          this.orderTime = res.result.orderTime
+          this.orderPeriod = res.result.orderPeriod
+          this.returnUrl = res.result.returnUrl
+          this.notifyUrl = res.result.notifyUrl
+          this.payUrl = res.result.notifyUrl
+          this.sign = res.result.sign
         })
       },
       onSubmit() {
@@ -67,7 +60,7 @@
     },
     created () {
       this.orderId = this.$route.query.orderId
-      this._alipay(id)
+      this._alipay(orderId)
       this.userId = getStore('userId')
     }
   }

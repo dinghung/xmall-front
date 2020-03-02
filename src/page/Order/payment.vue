@@ -247,7 +247,7 @@
     //       return false
     //     }
     //   }
-    // },
+     },
     created () {
       this.userId = getStore('userId')
       this.orderId = this.$route.query.orderId
