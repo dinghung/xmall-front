@@ -39,7 +39,7 @@
       _alipay (orderId) {
         console.log(orderId);
         payment({params: {orderId}}).then(res => {
-          console.log(res);
+          console.log(res)
           this.productName = res.result.productName
           this.orderNo = res.result.orderNo
           this.orderPrice = res.result.orderPrice
