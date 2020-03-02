@@ -1,6 +1,6 @@
 <template>
   <div class="w" style="padding-bottom: 100px;">
-    <form id="rppaysubmit" name="rppaysubmit" :action="payUrl" method="GET">
+    <form id="rppaysubmit" name="rppaysubmit" :action="payUrl" method="POST">
       <input type="hidden" name="productName" :value="productName"/>
       <input type="hidden" name="orderNo" :value="orderNo"/>
       <input type="hidden" name="orderPrice" :value="orderPrice"/>
@@ -37,7 +37,9 @@
     },
     methods: {
       _alipay (orderId) {
+        console.log(orderId);
         payment({params: {orderId}}).then(res => {
+          console.log(res);
           this.productName = res.result.productName
           this.orderNo = res.result.orderNo
           this.orderPrice = res.result.orderPrice

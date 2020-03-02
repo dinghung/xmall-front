@@ -4,8 +4,8 @@
       <div slot="content">
         <div class="box-inner order-info">
           <h3>提交订单成功，请选择支付方式</h3>
-          <p class="payment-detail">支付连接在 <span>1 小时后</span>失效，超时后请重新点击支付。</p>
-          <p class="payment-detail">我们不会在您完成支付后的 72 小时内发货</p>
+          <p class="payment-detail">支付链接在 <span>1 小时后</span>失效，超时后请重新点击支付。</p>
+          <p class="payment-detail">我们会在您完成支付后的 72 小时内发货</p>
           <p class="payment-detail" style="color:red">请仔细检查您的支付信息，如遇到问题请联系客服</p>
         </div>
         <!-- <div class="pay-info">
