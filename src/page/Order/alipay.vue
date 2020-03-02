@@ -1,16 +1,16 @@
 <template>
   <div class="w" style="padding-bottom: 100px;">
     <form id="rppaysubmit" name="rppaysubmit" action="http://gateway.i1dh.com/scanPay/initPay" method="GET">
-      <input type="hidden" name="productName" :value="productName"/>
-      <input type="hidden" name="orderNo" :value="orderNo"/>
-      <input type="hidden" name="orderPrice" :value="orderPrice"/>
-      <input type="hidden" name="orderIp" :value="orderIp"/>
-      <input type="hidden" name="orderDate" :value="orderDate"/>
-      <input type="hidden" name="orderTime" :value="orderTime"/>
-      <input type="hidden" name="orderPeriod" :value="orderPeriod"/>
-      <input type="hidden" name="returnUrl" :value="returnUrl"/>
-      <input type="hidden" name="notifyUrl" :value="notifyUrl"/>
-      <input type="hidden" name="sign" :value="sign"/>
+      <input type="hidden" name="productName" v-model="productName"/>
+      <input type="hidden" name="orderNo" v-model="orderNo"/>
+      <input type="hidden" name="orderPrice" v-model="orderPrice"/>
+      <input type="hidden" name="orderIp" v-model="orderIp"/>
+      <input type="hidden" name="orderDate" v-model="orderDate"/>
+      <input type="hidden" name="orderTime" v-model="orderTime"/>
+      <input type="hidden" name="orderPeriod" v-model="orderPeriod"/>
+      <input type="hidden" name="returnUrl" v-model="returnUrl"/>
+      <input type="hidden" name="notifyUrl" v-model="notifyUrl"/>
+      <input type="hidden" name="sign" v-model="sign"/>
       <input type="submit" value="提交" style="display:none;" />
     </form>
   </div>
