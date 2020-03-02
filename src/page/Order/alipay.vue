@@ -52,8 +52,6 @@
             this.notifyUrl = res.result.notifyUrl
             this.payUrl = res.result.notifyUrl
             this.sign = res.result.sign
-          } else {
-            this.messageFail(res.message)
           }
         })
       },
