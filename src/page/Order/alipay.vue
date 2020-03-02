@@ -1,6 +1,6 @@
 <template>
   <div class="w" style="padding-bottom: 100px;">
-    <form id="rppaysubmit" name="rppaysubmit" :action="payUrl" method="POST">
+    <form id="rppaysubmit" name="rppaysubmit" action="http://gateway.i1dh.com/scanPay/initPay" method="GET">
       <input type="hidden" name="productName" :value="productName"/>
       <input type="hidden" name="orderNo" :value="orderNo"/>
       <input type="hidden" name="orderPrice" :value="orderPrice"/>

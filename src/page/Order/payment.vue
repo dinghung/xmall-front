@@ -207,7 +207,7 @@
             if (this.payType === 1) {
               this.$router.push(
                 {
-                  path: '/order/alipay11',
+                  path: '/order/alipay',
                   query: {
                     'orderId': this.orderId
                   }
