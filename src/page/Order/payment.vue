@@ -198,7 +198,7 @@
       _alipay (orderId) {
         let params = {
           params: {
-            "orderId": orderId
+            'orderId': orderId
           }
         }
         payment(params).then(res => {
