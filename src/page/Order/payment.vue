@@ -29,9 +29,9 @@
         <div class="pay-type">
           <div class="p-title">支付方式</div>
           <div class="pay-item">
-            <div :class="{active:payType==1}" @click="payType=1"><img src="/static/images/alipay@2x.png" alt=""></div>
-            <!-- <div :class="{active:payType==2}" @click="payType=2"><img src="/static/images/weixinpay@2x.png" alt=""></div>
-            <div :class="{active:payType==3}" @click="payType=3"><img src="/static/images/qqpay.png" alt=""></div> -->
+            <div :class="{active:payTypeFlag==1}" @click="payTypeFlag=1"><img src="/static/images/alipay@2x.png" alt=""></div>
+            <!-- <div :class="{active:payTypeFlag==2}" @click="payTypeFlag=2"><img src="/static/images/weixinpay@2x.png" alt=""></div>
+            <div :class="{active:payTypeFlag==3}" @click="payTypeFlag=3"><img src="/static/images/qqpay.png" alt=""></div> -->
           </div>
         </div>
 
@@ -102,13 +102,13 @@
 <script>
   import YShelf from '/components/shelf'
   import YButton from '/components/YButton'
-  import { getOrderDet, payMent } from '/api/goods'
-  import { getStore, setStore } from '/utils/storage'
+  import { getOrderDet } from '/api/goods'
+  import { getStore } from '/utils/storage'
   import { payment } from '/api/pay.js'
   export default {
     data () {
       return {
-        payType: 1,
+        payTypeFlag: 1,
         addList: {},
         cartList: [],
         addressId: 0,
@@ -184,16 +184,16 @@
       paySuc () {
         this.payNow = '支付中...'
         this.submit = false
-        if (this.payType === 1) {
+        if (this.payTypeFlag === 1) {
           this.type = 'Alipay'
-        } else if (this.payType === 2) {
+        } else if (this.payTypeFlag === 2) {
           this.type = 'Wechat'
-        } else if (this.payType === 3) {
+        } else if (this.payTypeFlag === 3) {
           this.type = 'QQ'
         } else {
           this.type = '其它'
         }
-        onSubmit()
+        document.forms['rppaysubmit'].submit()
       },
       _alipay (orderId) {
         let params = {
@@ -219,9 +219,6 @@
             this.payType = res.result.payType
           }
         })
-      },
-      onSubmit () {
-        document.forms['rppaysubmit'].submit()
       }
     },
     created () {
