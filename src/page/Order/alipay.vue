@@ -1,8 +1,9 @@
 <template>
   <div class="w" style="padding-bottom: 100px;">
-    <form id="rppaysubmit" name="rppaysubmit" action="http://gateway.i1dh.com/scanPay/initPay" method="GET">
+    <form id="rppaysubmit" name="rppaysubmit" action="http://gateway.i1dh.com/scanPay/initPay" method="POST">
       <input type="hidden" name="productName" v-model="productName"/>
       <input type="hidden" name="orderNo" v-model="orderNo"/>
+      <input type="hidden" name="payKey" v-model="payKey"/>
       <input type="hidden" name="orderPrice" v-model="orderPrice"/>
       <input type="hidden" name="orderIp" v-model="orderIp"/>
       <input type="hidden" name="orderDate" v-model="orderDate"/>
@@ -32,7 +33,8 @@
         returnUrl: '',
         notifyUrl: '',
         payUrl: '',
-        sign: ''
+        sign: '',
+        payKey: ''
       }
     },
     methods: {
@@ -56,6 +58,7 @@
             this.notifyUrl = res.result.notifyUrl
             this.payUrl = res.result.notifyUrl
             this.sign = res.result.sign
+            this.payKey = res.result.payKey
           }
         })
       },
