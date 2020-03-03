@@ -69,9 +69,9 @@
         })
       },
       onSubmit () {
-        let pay_data_flag = document.getElementById("sign").value;
+        let pay_data_flag = document.getElementById("sign").value
         while(typeof pay_data_flag == 'undefined' || pay_data_flag == null || pay_data_flag == ''){
-          pay_data_flag = document.getElementById("sign").value;
+          pay_data_flag = document.getElementById("sign").value
         }
         document.forms['rppaysubmit'].orderId
       }
