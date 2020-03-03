@@ -69,8 +69,8 @@
         })
       },
       onSubmit () {
-        let paydataflag = document.getElementById("sign").value
-        while(typeof paydataflag === 'undefined' || paydataflag === null || paydataflag === ''){
+        let paydataflag = document.getElementById('sign').value
+        while (typeof paydataflag === 'undefined' || paydataflag === null || paydataflag === '') {
           paydataflag = document.getElementById("sign").value
         }
         document.forms['rppaysubmit'].orderId
