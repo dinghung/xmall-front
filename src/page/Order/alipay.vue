@@ -38,7 +38,7 @@
     methods: {
       _alipay (orderId) {
         console.log(orderId)
-        payment({orderId}).then(res => {
+        payment({params:{orderId}}).then(res => {
           if (res.success === true) {
             console.log(res)
             this.productName = res.result.productName
