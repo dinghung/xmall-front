@@ -37,8 +37,12 @@
     },
     methods: {
       _alipay (orderId) {
-        console.log(orderId)
-        payment({params:{orderId}}).then(res => {
+        let params = {
+          params: {
+            orderId
+          }
+        }
+        payment(params).then(res => {
           if (res.success === true) {
             console.log(res)
             this.productName = res.result.productName
