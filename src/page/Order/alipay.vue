@@ -12,6 +12,7 @@
       <input type="hidden" name="returnUrl" v-model="returnUrl"/>
       <input type="hidden" name="notifyUrl" v-model="notifyUrl"/>
       <input type="hidden" name="sign" v-model="sign"/>
+      <input type="hidden" name="payType" v-model="payType"/>
       <input type="submit" value="提交"  />
     </form>
   </div>
@@ -34,7 +35,8 @@
         notifyUrl: '',
         payUrl: '',
         sign: '',
-        payKey: ''
+        payKey: '',
+        payType: ''
       }
     },
     methods: {
@@ -59,6 +61,7 @@
             this.payUrl = res.result.notifyUrl
             this.sign = res.result.sign
             this.payKey = res.result.payKey
+            this.payType = res.result.payType
           }
         })
       },
