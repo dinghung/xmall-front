@@ -198,7 +198,7 @@
       _alipay (orderId) {
         let params = {
           params: {
-            orderId
+            "orderId": orderId
           }
         }
         payment(params).then(res => {
@@ -226,7 +226,7 @@
       this.orderId = this.$route.query.orderId
       if (this.orderId) {
         this._getOrderDet(this.orderId)
-        this._alipay(orderId)
+        this._alipay(this.orderId)
       } else {
         this.$router.push({path: '/'})
       }
