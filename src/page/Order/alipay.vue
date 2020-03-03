@@ -63,7 +63,7 @@
         })
       },
       onSubmit () {
-        document.forms['rppaysubmit'].orderId
+        document.forms['rppaysubmit'].submit()
       }
     },
     mounted () {
