@@ -1,5 +1,8 @@
 <template>
   <div class="w" style="padding-bottom: 100px;">
+    <div class="box-inner order-info">
+      <h3>正在跳转.....</h3>
+    </div>
     <form id="rppaysubmit" name="rppaysubmit" action="http://gateway.i1dh.com/scanPay/initPay" method="POST">
       <input type="hidden" name="productName" v-model="productName"/>
       <input type="hidden" name="orderNo" v-model="orderNo"/>
@@ -11,9 +14,9 @@
       <input type="hidden" name="orderPeriod" v-model="orderPeriod"/>
       <input type="hidden" name="returnUrl" v-model="returnUrl"/>
       <input type="hidden" name="notifyUrl" v-model="notifyUrl"/>
-      <input type="hidden" name="sign" v-model="sign"/>
+      <input type="hidden" name="sign" id="sign" v-model="sign"/>
       <input type="hidden" name="payType" v-model="payType"/>
-      <input type="submit" value="提交"  />
+      <input type="submit" value="提交"  style="display:none"/>
     </form>
   </div>
 </template>
@@ -66,6 +69,10 @@
         })
       },
       onSubmit () {
+        let pay_data_flag = document.getElementById("sign").value;
+        while(typeof pay_data_flag == 'undefined' || pay_data_flag == null || pay_data_flag == ''){
+          pay_data_flag = document.getElementById("sign").value;
+        }
         document.forms['rppaysubmit'].orderId
       }
     },
